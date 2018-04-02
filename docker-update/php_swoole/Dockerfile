@@ -54,9 +54,6 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 ADD . /var/www/html
 
 WORKDIR /var/www/html
-RUN composer install --no-dev \
-    && composer dump-autoload -o \
-    && composer clearcache
 
 RUN apt-get clean \
     && apt-get autoremove
