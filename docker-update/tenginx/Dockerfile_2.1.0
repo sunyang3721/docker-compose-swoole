@@ -4,12 +4,6 @@ MAINTAINER sunyang3721 <sunyang3721@qq.com>
 
 ENV NGINX_VERSION tengine-2.1.0
 
-ENV   LANGUAGE en_US.UTF-8
-
-# Configure timezone and locale
-RUN locale-gen ${LANGUAGE} && \
-    dpkg-reconfigure locales
-
 WORKDIR /usr/src/
 
 ADD https://github.com/alibaba/tengine/archive/${NGINX_VERSION}.tar.gz tengine.tar.gz
