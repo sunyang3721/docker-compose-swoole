@@ -108,6 +108,10 @@ RUN curl -L "http://tengine.taobao.org/download/tengine-$TENGINE_VERSION.tar.gz"
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
+VOLUME /usr/share/nginx/html
+VOLUME /etc/nginx/conf.d
+VOLUME /var/log/nginx
+
 EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
