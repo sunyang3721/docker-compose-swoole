@@ -53,14 +53,3 @@ RUN cd /root && \
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo 'Asia/Shanghai' > /etc/timezone && \
     echo "[Date]\ndate.timezone=Asia/Shanghai" > /usr/local/etc/php/conf.d/timezone.ini
-
-ADD . /var/www/html
-
-WORKDIR /var/www/html
-
-RUN apt-get clean \
-    && apt-get autoremove
-
-EXPOSE 9000
-
-CMD ["php", "-m"]
