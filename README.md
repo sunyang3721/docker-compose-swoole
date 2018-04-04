@@ -16,7 +16,7 @@ services:
     depends_on:
       - mysql
       - redis
-    command: php /app/src/server.php start
+    command: php -v
 
   mysql:
     image: "549658/docker-compose-swoole:mysql_latest"
