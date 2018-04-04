@@ -25,20 +25,57 @@ docker run -it  --name tengine  -p 8085:80  -v ./tengine/html:/usr/share/nginx/h
 #    load ngx_http_rewrite_module.so;
 #}
 
-server {
-    listen       80;
-   #listen       somename:80;
-    server_name  somename  alias  another.alias;
+    server {
+        listen       80;
+        server_name  somename  alias  another.alias;
 
-    location / {
-       root   /usr/share/nginx/html;
-       index  index.html index.htm;
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        location / {
+	        proxy_http_version 1.1;
+	        proxy_set_header Connection "keep-alive";
+	        proxy_set_header Host $http_host;
+	        proxy_set_header X-Real-IP $remote_addr;
+	        if (!-e $request_filename) {
+	        	# 注意 由本机IP地址显示为主 
+	             proxy_pass http://10.68.80.155:8084;
+	        }
+	    }
     }
-}
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl http2;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
 ```
 ### 配置文件之后 输入下面命令 热加载即可
 ```
 // 如果没有报错 说明载入成功  就可以访问了
  docker exec -it tengine  nginx -s reload
 ```
-# 443端口访问
+# 更新历史
+2018-04-04  升级至 alpine:3.7   tengine升级至最新为 tengine_2.2.2
+
+# 443端口访问  强制跳转HTTPS访问  未完成待续......
+```
+//百度采用这种方式
+<meta http-equiv="refresh" content="0;url=https://www.xxx.com/">
+```
+
