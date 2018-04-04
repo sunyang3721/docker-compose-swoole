@@ -56,4 +56,3 @@ WORKDIR /var/www/html
 RUN apt-get clean \
     && apt-get autoremove
 
-EXPOSE 80
