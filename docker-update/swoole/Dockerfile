@@ -58,6 +58,6 @@ WORKDIR /var/www/html
 RUN apt-get clean \
     && apt-get autoremove
 
-EXPOSE 9000
+EXPOSE 9501
 
-CMD ["php", "-m"]
+CMD ["php", "/app/server.php","start"]
