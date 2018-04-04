@@ -55,9 +55,13 @@ ADD . /var/www/html
 
 WORKDIR /var/www/html
 
+RUN composer install --no-dev \
+    && composer dump-autoload -o \
+    && composer clearcache
+
 RUN apt-get clean \
     && apt-get autoremove
 
-EXPOSE 9501
+EXPOSE 80
 
-CMD ["php", "/app/server.php","start"]
+CMD ["php", "/var/www/swoft/bin/swoft", "start"]
