@@ -51,17 +51,9 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo 'Asia/Shanghai' > /etc/timezone && \
     echo "[Date]\ndate.timezone=Asia/Shanghai" > /usr/local/etc/php/conf.d/timezone.ini
 
-ADD . /var/www/html
-
 WORKDIR /var/www/html
-
-RUN composer install --no-dev \
-    && composer dump-autoload -o \
-    && composer clearcache
 
 RUN apt-get clean \
     && apt-get autoremove
 
 EXPOSE 80
-
-CMD ["php", "/var/www/swoft/bin/swoft", "start"]
