@@ -50,7 +50,7 @@ docker-compose up -d
 
 # swoft框架 快速搭建
 ```
-version: '3.4'
+version: '2'
 services:
   swoole:
     image: "549658/swoft:latest"
@@ -58,11 +58,13 @@ services:
       - "80:80"
     volumes:
       - ./app/swoft:/var/www/swoft:rw
+    stdin_open: true
+    tty: true
     restart: always
     depends_on:
       - mysql
       - redis
-    command: php -v
+    command: php /var/www/swoft/bin/swoft start
 
   mysql:
     image: "549658/docker-compose-swoole:mysql_latest"
