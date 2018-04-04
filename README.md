@@ -49,15 +49,17 @@ docker-compose up -d
 ```
 
 # swoft框架 快速搭建
+先git clone 再修改docker-compose.yml
 ```
 version: '2'
 services:
   swoole:
+    container_name: swoft
     image: "549658/swoft:latest"
     ports:
       - "80:80"
     volumes:
-      - ./app/swoft:/var/www/swoft:rw
+      - ./:/var/www/swoft:rw
     stdin_open: true
     tty: true
     restart: always
@@ -86,8 +88,20 @@ services:
       - "6379:6379"
     volumes:
       - ./data/redis/data:/var/lib/redis:rw
-    sysctls:
-        net.core.somaxconn: 65535
     restart: always
+
+  phpmyadmin:
+        container_name: phpmyadmin
+        image: phpmyadmin/phpmyadmin:latest
+        ports:
+            - "8080:80"
+        environment:
+            - PMA_ARBITRARY=1
+            - TESTSUITE_PASSWORD=549658
+        depends_on:
+            - mysql
+        volumes:
+            - ./data/phpmyadmin:/sessions
+
 ```
 
