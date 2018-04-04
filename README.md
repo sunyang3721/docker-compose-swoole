@@ -105,3 +105,9 @@ services:
 
 ```
 
+# 最后 composer update
+```
+docker run --rm --interactive --tty \
+    --volume ./swoft:/app \
+    composer update
+```
