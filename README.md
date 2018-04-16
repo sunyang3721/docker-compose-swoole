@@ -12,6 +12,7 @@ services:
       - "9501:9501"
     volumes:
       - ./app/www:/var/www/html:rw
+    privileged: true
     restart: always
     depends_on:
       - mysql
@@ -25,6 +26,7 @@ services:
     volumes:
       - ./data/mysql/data:/var/lib/mysql:rw
       - ./data/mysql/sock:/var/run/mysqld:rw # remove when windows.
+      privileged: true
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 549658
@@ -40,6 +42,7 @@ services:
       - ./data/redis/data:/var/lib/redis:rw
     sysctls:
         net.core.somaxconn: 65535
+    privileged: true
     restart: always
 ```
 
@@ -62,6 +65,7 @@ services:
       - ./:/var/www/swoft:rw
     stdin_open: true
     tty: true
+    privileged: true
     restart: always
     depends_on:
       - mysql
@@ -75,6 +79,7 @@ services:
       - "3306:3306"
     volumes:
       - ./data/mysql/data:/var/lib/mysql:rw
+    privileged: true
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 123456
@@ -86,6 +91,7 @@ services:
       - "6379:6379"
     volumes:
       - ./data/redis/data:/var/lib/redis:rw
+    privileged: true
     restart: always
 
   phpmyadmin:
